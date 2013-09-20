@@ -1,4 +1,13 @@
 
+# note: you may need to install the used libraries first
+# to do so just run:
+#
+# install.packages(c('zoo', 'plotrix'))
+
+library(plotrix)
+library(zoo)
+
+
 source("inc/plot_polls.R")
 
 # load poll data from CSV

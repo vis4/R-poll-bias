@@ -1,5 +1,3 @@
-library(plotrix)
-library(zoo)
 
 source("inc/load_polls.R")
 source("inc/add_colors.R")
