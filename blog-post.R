@@ -1,18 +1,28 @@
 
 source("inc/plot_polls.R")
 
+# load poll data from CSV
 polls <- load_polls('polls.csv')
 
+# plot all polls in one graph
 plot_polls(polls, "All institutes, all parties")
 
+# plot polls of a single party
+# valid keys are: spd, cdu, gru, fdp, lin, pir, afd, rep
 plot_polls(polls, party='spd', show_avg=F, main="All polls for SPD")
+
+# include the median plot by omitting the show_avg=F
 plot_polls(polls, party='spd', main="All polls for SPD vs. median")
 
+# focus on one polling institute using the inst= parameter
+# valid keys are: Emnid, Infratestdimap, Forsa, GMS, Allensbach, INSA, FGW
 plot_polls(polls, party='spd', inst='Emnid', main="SPD / TNS Emnid vs. median")
 plot_polls(polls, party='spd', inst='Infratestdimap', main="SPD / Infratest dimap vs. median")
 plot_polls(polls, party='spd', inst='Forsa', main="SPD / Forsa vs. median")
 
+# generate Tukey's median-difference plot
 plot_median_diff(polls, 'spd', 'Forsa', main='SPD / Forsa - Median-difference plot')
+# ..and the median bias (= the quarterly median of the median-difference plot)
 plot_median_median_diff(polls, 'spd', 'Forsa', main='SPD / Forsa - Median-difference plot')
 
 # more examples, please
