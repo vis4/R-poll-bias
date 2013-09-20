@@ -1,20 +1,6 @@
 library(plotrix)
 library(zoo)
 
-plot_party <- function(X, key, main='') {
-  if (main == '') main = paste('Umfragewerte von Partei',key)
-  X2 <- subset(X, X$party == key)
-  plot_polls(X2, main)
-}
-
-plot_inst <- function(X, key, main='', context=F) {
-  if (main == '') main = paste('Umfragewerte von Institut',key)
-  if (context == T) {
-    context <- subset(X, X$inst != key)
-  }
-  X <- subset(X, X$inst == key)
-  plot_polls(X, main, context=context)
-}
 
 quarts <- function(year, Q, len) {
   Q <- Q - 1
@@ -49,9 +35,11 @@ plot_avg_diff <- function(X, party, inst, main='') {
   
 }
 
-plot_polls <- function(X, main='', filter_party=F, filter_inst=F, show_avg=F) {
+plot_polls <- function(X, main='', party=F, inst=F, show_avg=F) {
   context <- F
   avg <- F
+  filter_party <- party
+  filter_inst <- inst
   if (filter_party != F) {
     X <- subset(X, X$party == filter_party)
     avg <- get_avg(X)
@@ -65,6 +53,11 @@ plot_polls <- function(X, main='', filter_party=F, filter_inst=F, show_avg=F) {
   }
   X <- subset(X, !is.na(X$value))
   has_context = is.data.frame(context)
+  ylim <- NULL
+  if (has_context) {
+    ylim <- c(min(min(X$value, na.rm=T), min(context$value, na.rm=T)),
+                max(max(X$value, na.rm=T), max(context$value, na.rm=T)))
+  }
   plot(X$date, X$value,
        col=X$color,
        axes=F,
@@ -72,6 +65,7 @@ plot_polls <- function(X, main='', filter_party=F, filter_inst=F, show_avg=F) {
        pch=20,
        ylab="%",
        xlab="",
+       ylim=ylim,
        type=ifelse(has_context, 'n', 'p'),
        main=main)
   if (has_context) {
