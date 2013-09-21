@@ -11,9 +11,8 @@ get_median_median_diff <- function(X, p, i) {
   attach(X)
   X$value[party != p] = NA  # ignore other parties
   avg_party <- as.numeric(get_median(X, asList=T))  # compute median
-  X$value[X$inst != i] = NA
+  X$value[X$inst != i] = NA  # ignore other institutes
   avg_party_inst <- as.numeric(get_median(X, asList=T, meanOfMedianPerInstitute=F))
-  print(avg_party_inst)
   diff = avg_party_inst - avg_party
   data.frame(diff=diff, date=quarts(1994,4, length(avg_party)))
 }
