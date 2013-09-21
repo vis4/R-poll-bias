@@ -3,10 +3,12 @@
 # to do so just run:
 #
 # install.packages(c('zoo', 'plotrix'))
+#
+# I used the following margins for the graphs
+# par(mar=c(4,2.3,2,0))
 
 library(plotrix)
 library(zoo)
-
 
 source("inc/plot_polls.R")
 

@@ -9,10 +9,11 @@ plot_median_median_diff <- function(X, party, inst, main='', limit=c(1998,2013))
 
 get_median_median_diff <- function(X, p, i) {
   attach(X)
-  X$value[party != p] = NA
-  avg_party <- as.numeric(tapply(X$value, as.yearqtr(X$date), median, na.rm=T))
-  X$value[inst != i] = NA
-  avg_party_inst <- as.numeric(tapply(X$value, as.yearqtr(X$date), median, na.rm=T))
+  X$value[party != p] = NA  # ignore other parties
+  avg_party <- as.numeric(get_median(X, asList=T))  # compute median
+  X$value[X$inst != i] = NA
+  avg_party_inst <- as.numeric(get_median(X, asList=T, meanOfMedianPerInstitute=F))
+  print(avg_party_inst)
   diff = avg_party_inst - avg_party
   data.frame(diff=diff, date=quarts(1994,4, length(avg_party)))
 }

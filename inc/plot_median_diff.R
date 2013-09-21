@@ -9,11 +9,12 @@ plot_median_diff <- function(X, party, inst, main='', limit=c(1998,2013), cex.fo
   plot_axes(X)
 }
 
-get_median_diff <- function(X, p, i) {
+get_median_diff <- function(X, p) {
   attach(X)
   X$value[party != p] = NA
-  #_party <- as.numeric(tapply(X$value, as.yearqtr(X$date), median, na.rm=T))
-  median_val <- tapply(X$value, as.yearqtr(X$date), median, na.rm=T)
+  
+  #median_val <- tapply(X$value, as.yearqtr(X$date), median, na.rm=T)
+  median_val <- get_median(X, asList=T)
   X$median.diff <- X$value - as.numeric(median_val[as.character(as.yearqtr(X$date))])
   X
 }
