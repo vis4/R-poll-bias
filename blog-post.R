@@ -51,7 +51,7 @@ plot_median_median_diff(polls, party='lin', inst='Emnid', limit=c(2000,2013), ma
 spdPolls <- subset(polls, polls$party == 'spd')
 simpleMed <- get_median(spdPolls, meanOfMedianPerInstitute=F)
 betterMed <- get_median(spdPolls)
-plot(simpleMed$date, simpleMed$value, type='l', frame=F, xlab='', cex.axis=0.8, cex.sub=0.9
+plot(simpleMed$date, simpleMed$value, type='l', frame=F, xlab='', cex.axis=0.8, cex.sub=0.9,
      main='Comparison of different quarterly medians for SPD',
      sub='black = simple median, red = mean of median per institute')
 lines(betterMed$date, betterMed$value, col='red')
